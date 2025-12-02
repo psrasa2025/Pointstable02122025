@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Netlify
 .netlify/
+
+# Design Assets (reference files only)
+design-assets/
