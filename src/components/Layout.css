@@ -58,6 +58,17 @@
   background-color: rgba(59, 130, 246, 0.1);
 }
 
+.nav-link-highlight {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white !important;
+  font-weight: var(--font-weight-bold);
+}
+
+.nav-link-highlight:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  color: white !important;
+}
+
 .main-content {
   flex: 1;
   max-width: 1200px;

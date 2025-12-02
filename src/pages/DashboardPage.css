@@ -139,6 +139,41 @@
   transform: translateY(-2px);
 }
 
+.quick-action-card.featured {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-color: #388E3C;
+  color: white;
+  position: relative;
+  grid-column: span 2;
+}
+
+.quick-action-card.featured .action-icon {
+  font-size: 2.5rem;
+}
+
+.quick-action-card.featured .action-title {
+  color: white;
+  font-size: var(--font-size-lg);
+}
+
+.quick-action-card.featured:hover {
+  background: linear-gradient(135deg, #45a049, #388E3C);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+}
+
+.featured-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background-color: #FFC107;
+  color: var(--color-text);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
 .action-icon {
   font-size: 2rem;
 }

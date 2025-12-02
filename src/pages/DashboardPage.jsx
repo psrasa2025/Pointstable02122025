@@ -21,10 +21,11 @@ function DashboardPage() {
   ])
 
   const [quickActions] = useState([
-    { id: 1, title: 'Edit Profile', icon: '✏️', action: () => navigate('/edit') },
-    { id: 2, title: 'View Profile', icon: '👤', action: () => navigate('/profile') },
-    { id: 3, title: 'Notifications', icon: '🔔', action: () => navigate('/notifications') },
-    { id: 4, title: 'Activity', icon: '📊', action: () => navigate('/activity') }
+    { id: 1, title: 'Points & Activities', icon: '💰', action: () => navigate('/home'), featured: true },
+    { id: 2, title: 'Edit Profile', icon: '✏️', action: () => navigate('/edit') },
+    { id: 3, title: 'View Profile', icon: '👤', action: () => navigate('/profile') },
+    { id: 4, title: 'Notifications', icon: '🔔', action: () => navigate('/notifications') },
+    { id: 5, title: 'Activity Timeline', icon: '📊', action: () => navigate('/activity') }
   ])
 
   const getActivityIcon = (type) => {
@@ -100,11 +101,12 @@ function DashboardPage() {
           {quickActions.map(action => (
             <button
               key={action.id}
-              className="quick-action-card"
+              className={`quick-action-card ${action.featured ? 'featured' : ''}`}
               onClick={action.action}
             >
               <div className="action-icon">{action.icon}</div>
               <div className="action-title">{action.title}</div>
+              {action.featured && <div className="featured-badge">NEW!</div>}
             </button>
           ))}
         </div>

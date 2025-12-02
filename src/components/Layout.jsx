@@ -19,6 +19,12 @@ function Layout({ children }) {
               Dashboard
             </Link>
             <Link 
+              to="/home" 
+              className={`nav-link nav-link-highlight ${location.pathname === '/home' ? 'active' : ''}`}
+            >
+              Points & Activities
+            </Link>
+            <Link 
               to="/profile" 
               className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}
             >
@@ -35,12 +41,6 @@ function Layout({ children }) {
               className={`nav-link ${location.pathname === '/activity' ? 'active' : ''}`}
             >
               Activity
-            </Link>
-            <Link 
-              to="/edit" 
-              className={`nav-link ${location.pathname === '/edit' ? 'active' : ''}`}
-            >
-              Edit
             </Link>
             <Link 
               to="/settings" 
