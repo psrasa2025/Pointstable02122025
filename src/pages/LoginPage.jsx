@@ -26,9 +26,9 @@ function LoginPage() {
     setError('')
 
     // TODO: Replace with actual API call
-    // For now, just navigate to profile
+    // For now, just navigate to dashboard
     if (formData.username && formData.password) {
-      navigate('/')
+      navigate('/dashboard')
     } else {
       setError('Please fill in all fields')
     }

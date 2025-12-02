@@ -13,10 +13,28 @@ function Layout({ children }) {
           </Link>
           <nav className="nav">
             <Link 
-              to="/" 
-              className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+              to="/dashboard" 
+              className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+            >
+              Dashboard
+            </Link>
+            <Link 
+              to="/profile" 
+              className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}
             >
               Profile
+            </Link>
+            <Link 
+              to="/notifications" 
+              className={`nav-link ${location.pathname === '/notifications' ? 'active' : ''}`}
+            >
+              Notifications
+            </Link>
+            <Link 
+              to="/activity" 
+              className={`nav-link ${location.pathname === '/activity' ? 'active' : ''}`}
+            >
+              Activity
             </Link>
             <Link 
               to="/edit" 
