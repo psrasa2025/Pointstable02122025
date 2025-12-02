@@ -1,24 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UserContext'
 import './EditProfilePage.css'
 
 function EditProfilePage() {
   const navigate = useNavigate()
+  const { user, updateUser } = useUser()
   
   const [formData, setFormData] = useState({
-    name: 'John Doe',
-    title: 'Software Engineer',
-    location: 'San Francisco, CA',
-    bio: 'Passionate software engineer with 5+ years of experience building scalable web applications.',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    website: 'johndoe.dev',
-    twitter: '@johndoe',
-    linkedin: 'linkedin.com/in/johndoe',
-    github: 'github.com/johndoe'
+    name: user.name || 'John Doe',
+    title: user.title || 'Software Engineer',
+    location: user.location || 'San Francisco, CA',
+    bio: user.bio || 'Passionate software engineer with 5+ years of experience building scalable web applications.',
+    email: user.email || 'john.doe@example.com',
+    phone: user.phone || '+1 (555) 123-4567',
+    website: user.website || 'johndoe.dev',
+    twitter: user.twitter || '@johndoe',
+    linkedin: user.linkedin || 'linkedin.com/in/johndoe',
+    github: user.github || 'github.com/johndoe'
   })
+
+  // Update form when user data changes
+  useEffect(() => {
+    setFormData({
+      name: user.name || 'John Doe',
+      title: user.title || 'Software Engineer',
+      location: user.location || 'San Francisco, CA',
+      bio: user.bio || '',
+      email: user.email || 'john.doe@example.com',
+      phone: user.phone || '',
+      website: user.website || '',
+      twitter: user.twitter || '',
+      linkedin: user.linkedin || '',
+      github: user.github || ''
+    })
+  }, [user])
 
   const [errors, setErrors] = useState({})
 
@@ -56,10 +74,11 @@ function EditProfilePage() {
       return
     }
 
-    // Here you would typically save to backend
-    console.log('Saving profile:', formData)
+    // Save to localStorage via Context
+    updateUser(formData)
+    console.log('Profile saved to localStorage:', formData)
     alert('Profile saved successfully!')
-    navigate('/')
+    navigate('/profile')
   }
 
   const handleCancel = () => {
