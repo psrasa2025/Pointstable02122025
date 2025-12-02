@@ -1,0 +1,127 @@
+.invite-activities-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #E0FFE0 0%, #C0F0C0 100%);
+}
+
+.invite-header {
+  background-color: #4CAF50;
+  padding: var(--spacing-lg);
+}
+
+.invite-content {
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #E0E0E0;
+  border: 1px solid #000;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.search-icon,
+.search-icon-right {
+  color: var(--color-text-muted);
+  font-size: 1.2rem;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  outline: none;
+  margin: 0 var(--spacing-md);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.friends-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.friend-card {
+  background-color: #F8BBD0;
+  border: 2px solid #000;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.friend-avatar {
+  margin-bottom: var(--spacing-sm);
+}
+
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.friend-name {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.add-friend-btn {
+  background-color: #CE93D8;
+  border: 2px solid #000;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.add-friend-btn:hover {
+  background-color: #BA68C8;
+  transform: scale(1.05);
+}
+
+.view-request-btn {
+  width: 100%;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-base);
+}
+
+.view-request-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+

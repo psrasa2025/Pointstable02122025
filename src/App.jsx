@@ -5,11 +5,25 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import DashboardPage from './pages/DashboardPage'
+import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import EditProfilePage from './pages/EditProfilePage'
 import SettingsPage from './pages/SettingsPage'
 import NotificationsPage from './pages/NotificationsPage'
 import ActivityPage from './pages/ActivityPage'
+import ActivitiesListPage from './pages/ActivitiesListPage'
+import FindActivityPage from './pages/FindActivityPage'
+import ActivityFormPage from './pages/ActivityFormPage'
+import PointsTablePage from './pages/PointsTablePage'
+import DonationPage from './pages/DonationPage'
+import ConvertPointsPage from './pages/ConvertPointsPage'
+import TransferPointsPage from './pages/TransferPointsPage'
+import InviteActivitiesPage from './pages/InviteActivitiesPage'
+import FriendRequestsPage from './pages/FriendRequestsPage'
+import LeadersPage from './pages/LeadersPage'
+import CountryLeaderPage from './pages/CountryLeaderPage'
+import WorldLeaderPage from './pages/WorldLeaderPage'
+import OwnActivityPage from './pages/OwnActivityPage'
 import './App.css'
 
 function App() {
@@ -49,6 +63,20 @@ function App() {
           <ActivityPage />
         </Layout>
       } />
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/activities-list" element={<ActivitiesListPage />} />
+      <Route path="/find-activity" element={<FindActivityPage />} />
+      <Route path="/activity-form" element={<ActivityFormPage />} />
+      <Route path="/points-table" element={<PointsTablePage />} />
+      <Route path="/donation" element={<DonationPage />} />
+      <Route path="/convert-points" element={<ConvertPointsPage />} />
+      <Route path="/transfer-points" element={<TransferPointsPage />} />
+      <Route path="/invite-activities" element={<InviteActivitiesPage />} />
+      <Route path="/friend-requests" element={<FriendRequestsPage />} />
+      <Route path="/leaders" element={<LeadersPage />} />
+      <Route path="/country-leader" element={<CountryLeaderPage />} />
+      <Route path="/world-leader" element={<WorldLeaderPage />} />
+      <Route path="/own-activity" element={<OwnActivityPage />} />
     </Routes>
   )
 }

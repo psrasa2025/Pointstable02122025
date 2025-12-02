@@ -1,0 +1,48 @@
+.own-activity-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #E0FFE0 0%, #C0F0C0 100%);
+}
+
+.own-activity-header {
+  background-color: #4CAF50;
+  padding: var(--spacing-lg);
+}
+
+.own-activity-content {
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.own-activity-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.form-section {
+  background-color: #A5D6A7;
+  border: 2px solid #000;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+}
+
+.upload-section {
+  background-color: #A5D6A7;
+  border: 2px solid #000;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+

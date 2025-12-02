@@ -1,0 +1,66 @@
+.points-table-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #E0FFE0 0%, #C0F0C0 100%);
+}
+
+.points-header {
+  background-color: #4CAF50;
+  padding: var(--spacing-lg);
+  color: white;
+}
+
+.points-content {
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.points-title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.points-table {
+  background-color: #A5D6A7;
+  border: 2px solid #000;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.points-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-md) 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.points-row:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.points-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.action-btn {
+  background-color: #4CAF50;
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
