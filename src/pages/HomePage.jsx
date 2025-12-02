@@ -20,7 +20,7 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="home-header">
-        <button className="back-btn" onClick={() => navigate('/dashboard')}>
+        <button className="back-btn" onClick={() => navigate('/login')}>
           ← Home
         </button>
       </div>
