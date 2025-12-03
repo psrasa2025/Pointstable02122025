@@ -67,3 +67,4 @@ function PointsTablePage() {
 
 export default PointsTablePage
 
+

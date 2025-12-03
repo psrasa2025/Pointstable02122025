@@ -82,18 +82,76 @@
   line-height: var(--line-height-tight);
 }
 
-@media (max-width: 480px) {
+/* Tablet */
+@media (max-width: 768px) {
+  .home-content {
+    padding: var(--spacing-lg);
+    max-width: 100%;
+  }
+
   .menu-grid {
     gap: var(--spacing-md);
   }
 
   .menu-item {
     padding: var(--spacing-lg);
-    min-height: 80px;
+    min-height: 90px;
   }
 
   .welcome-title {
     font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-xl);
   }
 }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .home-header {
+    padding: var(--spacing-md);
+  }
+
+  .home-content {
+    padding: var(--spacing-md);
+  }
+
+  .menu-grid {
+    gap: var(--spacing-sm);
+  }
+
+  .menu-item {
+    padding: var(--spacing-md);
+    min-height: 75px;
+    border-radius: var(--radius-lg);
+  }
+
+  .menu-icon {
+    font-size: 1.25rem;
+  }
+
+  .menu-label {
+    font-size: var(--font-size-sm);
+  }
+
+  .welcome-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .back-btn {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  .menu-item {
+    padding: var(--spacing-sm);
+    min-height: 65px;
+  }
+
+  .menu-label {
+    font-size: var(--font-size-xs);
+  }
+}
+
 

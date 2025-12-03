@@ -87,3 +87,48 @@
   color: white;
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .activities-content {
+    padding: var(--spacing-lg);
+    max-width: 100%;
+  }
+
+  .activity-card {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .activities-header {
+    padding: var(--spacing-md);
+  }
+
+  .activities-content {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+
+  .activity-card {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+  }
+
+  .activity-name,
+  .activity-date,
+  .activity-status-line {
+    font-size: var(--font-size-base);
+  }
+
+  .status-badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .back-btn {
+    font-size: var(--font-size-lg);
+  }
+}
+
+
