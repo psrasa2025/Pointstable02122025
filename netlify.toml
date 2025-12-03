@@ -9,6 +9,17 @@
   
   # Default build command
   command = "npm run build"
+  
+  # Functions directory
+  functions = "netlify/functions"
+
+# Functions configuration
+[functions]
+  # Node.js version for functions
+  node_bundler = "esbuild"
+  
+  # Include all dependencies
+  included_files = ["netlify/functions/**"]
 
 # Production context: all deploys from the main branch
 [context.production]
@@ -24,6 +35,32 @@
 # Branch deploy context: all deploys that are not from a pull/merge request
 [context.branch-deploy]
   command = "npm run build"
+
+# API redirects for serverless functions (must come before SPA redirect)
+[[redirects]]
+  from = "/api/auth/*"
+  to = "/.netlify/functions/auth/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/users/*"
+  to = "/.netlify/functions/users/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/points/*"
+  to = "/.netlify/functions/points/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/activities/*"
+  to = "/.netlify/functions/activities/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/leaderboard/*"
+  to = "/.netlify/functions/leaderboard/:splat"
+  status = 200
 
 # Redirect rules for Single Page Application (SPA)
 [[redirects]]

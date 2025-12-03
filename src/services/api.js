@@ -1,53 +1,42 @@
-/**
- * API Service for connecting to the backend
- * Update API_URL to match your backend server
- */
+// API Service - Connects frontend to Netlify Serverless Functions
+// This service provides a clean interface to all backend endpoints
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_BASE = '/api';
 
-// Helper function to get auth token from localStorage
-const getToken = () => {
-  return localStorage.getItem('token');
+// Helper to get auth token
+const getAuthToken = () => {
+  return localStorage.getItem('authToken');
 };
 
-// Helper function to save token
-const saveToken = (token) => {
-  localStorage.setItem('token', token);
+// Helper to set auth token
+export const setAuthToken = (token) => {
+  if (token) {
+    localStorage.setItem('authToken', token);
+  } else {
+    localStorage.removeItem('authToken');
+  }
 };
 
-// Helper function to remove token
-const removeToken = () => {
-  localStorage.removeItem('token');
-};
-
-// Base request function
+// Helper for making API requests
 const request = async (endpoint, options = {}) => {
-  const token = getToken();
-  
+  const url = `${API_BASE}${endpoint}`;
+  const token = getAuthToken();
+
   const config = {
+    ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` })
-    },
-    ...options
+      ...(token && { Authorization: `Bearer ${token}` }),
+      ...options.headers
+    }
   };
 
-  // Add body if provided
-  if (options.body && typeof options.body === 'object') {
-    config.body = JSON.stringify(options.body);
-  }
-
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, config);
+    const response = await fetch(url, config);
     const data = await response.json();
 
     if (!response.ok) {
-      // Handle 401 (unauthorized) - clear token and redirect to login
-      if (response.status === 401) {
-        removeToken();
-        // You can add redirect logic here if needed
-      }
-      throw new Error(data.message || `API Error: ${response.statusText}`);
+      throw new Error(data.error || 'An error occurred');
     }
 
     return data;
@@ -57,91 +46,237 @@ const request = async (endpoint, options = {}) => {
   }
 };
 
-// API methods
-export const api = {
-  // Authentication
-  async register(email, password, name) {
-    const data = await request('/auth/register', {
+// ============================================
+// AUTH API
+// ============================================
+export const authAPI = {
+  // Register a new user
+  register: async (userData) => {
+    const response = await request('/auth/register', {
       method: 'POST',
-      body: { email, password, name }
+      body: JSON.stringify(userData)
     });
-    
-    if (data.token) {
-      saveToken(data.token);
+    if (response.token) {
+      setAuthToken(response.token);
     }
-    
-    return data;
+    return response;
   },
 
-  async login(email, password) {
-    const data = await request('/auth/login', {
+  // Login user
+  login: async (email, password) => {
+    const response = await request('/auth/login', {
       method: 'POST',
-      body: { email, password }
+      body: JSON.stringify({ email, password })
     });
-    
-    if (data.token) {
-      saveToken(data.token);
+    if (response.token) {
+      setAuthToken(response.token);
     }
-    
-    return data;
+    return response;
   },
 
-  logout() {
-    removeToken();
+  // Logout user
+  logout: async () => {
+    try {
+      await request('/auth/logout', { method: 'POST' });
+    } finally {
+      setAuthToken(null);
+    }
   },
 
-  async getCurrentUser() {
-    return request('/auth/me');
+  // Verify token
+  verifyToken: async () => {
+    return request('/auth/verify');
   },
 
-  // User Profiles
-  async getAllUsers() {
-    return request('/users');
-  },
-
-  async getUserById(id) {
-    return request(`/users/${id}`);
-  },
-
-  async getProfile() {
-    return request('/users/me/profile');
-  },
-
-  async updateProfile(profileData) {
-    return request('/users/me/profile', {
-      method: 'PUT',
-      body: profileData
-    });
-  },
-
-  async updateSettings(settings) {
-    return request('/users/me/settings', {
-      method: 'PUT',
-      body: settings
-    });
-  },
-
-  async updateStats(stats) {
-    return request('/users/me/stats', {
-      method: 'PUT',
-      body: stats
-    });
-  },
-
-  async deleteAccount() {
-    const data = await request('/users/me', {
-      method: 'DELETE'
-    });
-    removeToken();
-    return data;
+  // Check if user is authenticated
+  isAuthenticated: () => {
+    return !!getAuthToken();
   }
 };
 
-// Check if user is authenticated
-export const isAuthenticated = () => {
-  return !!getToken();
+// ============================================
+// USERS API
+// ============================================
+export const usersAPI = {
+  // Get current user profile
+  getProfile: async (userId = 'demo') => {
+    return request(`/users/${userId}`);
+  },
+
+  // Update user profile
+  updateProfile: async (userId = 'demo', profileData) => {
+    return request(`/users/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify(profileData)
+    });
+  },
+
+  // Delete user account
+  deleteAccount: async (userId) => {
+    return request(`/users/${userId}`, {
+      method: 'DELETE'
+    });
+  }
+};
+
+// ============================================
+// POINTS API
+// ============================================
+export const pointsAPI = {
+  // Get user's points
+  getPoints: async () => {
+    return request('/points/');
+  },
+
+  // Get points history
+  getHistory: async () => {
+    return request('/points/history');
+  },
+
+  // Get conversion rates
+  getRates: async () => {
+    return request('/points/rates');
+  },
+
+  // Add points (admin/system)
+  addPoints: async (amount, description) => {
+    return request('/points/add', {
+      method: 'POST',
+      body: JSON.stringify({ amount, description })
+    });
+  },
+
+  // Donate points
+  donate: async (amount, recipient, message) => {
+    return request('/points/donate', {
+      method: 'POST',
+      body: JSON.stringify({ amount, recipient, message })
+    });
+  },
+
+  // Transfer points
+  transfer: async (amount, recipientId, note) => {
+    return request('/points/transfer', {
+      method: 'POST',
+      body: JSON.stringify({ amount, recipientId, note })
+    });
+  },
+
+  // Convert points to currency
+  convert: async (amount, currency) => {
+    return request('/points/convert', {
+      method: 'POST',
+      body: JSON.stringify({ amount, currency })
+    });
+  }
+};
+
+// ============================================
+// ACTIVITIES API
+// ============================================
+export const activitiesAPI = {
+  // Get all activities
+  getAll: async (filters = {}) => {
+    const params = new URLSearchParams(filters).toString();
+    return request(`/activities/${params ? '?' + params : ''}`);
+  },
+
+  // Get user's activities
+  getMine: async () => {
+    return request('/activities/my');
+  },
+
+  // Get single activity
+  getById: async (activityId) => {
+    return request(`/activities/${activityId}`);
+  },
+
+  // Create activity
+  create: async (activityData) => {
+    return request('/activities/', {
+      method: 'POST',
+      body: JSON.stringify(activityData)
+    });
+  },
+
+  // Update activity
+  update: async (activityId, activityData) => {
+    return request(`/activities/${activityId}`, {
+      method: 'PUT',
+      body: JSON.stringify(activityData)
+    });
+  },
+
+  // Delete activity
+  delete: async (activityId) => {
+    return request(`/activities/${activityId}`, {
+      method: 'DELETE'
+    });
+  },
+
+  // Join activity
+  join: async (activityId) => {
+    return request(`/activities/${activityId}/join`, {
+      method: 'POST'
+    });
+  },
+
+  // Leave activity
+  leave: async (activityId) => {
+    return request(`/activities/${activityId}/leave`, {
+      method: 'POST'
+    });
+  },
+
+  // Invite friends to activity
+  invite: async (activityId, friendIds, message) => {
+    return request(`/activities/${activityId}/invite`, {
+      method: 'POST',
+      body: JSON.stringify({ friendIds, message })
+    });
+  },
+
+  // Search activities
+  search: async (query) => {
+    return request(`/activities/?search=${encodeURIComponent(query)}`);
+  }
+};
+
+// ============================================
+// LEADERBOARD API
+// ============================================
+export const leaderboardAPI = {
+  // Get world leaderboard
+  getWorld: async (limit = 15, offset = 0) => {
+    return request(`/leaderboard/world?limit=${limit}&offset=${offset}`);
+  },
+
+  // Get country leaderboard
+  getCountry: async (countryCode) => {
+    return request(`/leaderboard/country/${countryCode}`);
+  },
+
+  // Get list of countries
+  getCountries: async () => {
+    return request('/leaderboard/countries');
+  },
+
+  // Get user's rank
+  getUserRank: async (userId) => {
+    return request(`/leaderboard/user/${userId}`);
+  }
+};
+
+// ============================================
+// COMBINED API OBJECT
+// ============================================
+const api = {
+  auth: authAPI,
+  users: usersAPI,
+  points: pointsAPI,
+  activities: activitiesAPI,
+  leaderboard: leaderboardAPI,
+  setAuthToken
 };
 
 export default api;
-
-
